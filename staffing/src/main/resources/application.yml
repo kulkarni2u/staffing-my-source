@@ -1,0 +1,50 @@
+spring.profiles.active: development
+server:
+  port: 8086
+---
+spring:
+  profiles: development
+  jpa:
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+      use-new-id-generator-mappings: true
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  data:
+    jpa:
+      repositories:
+        enabled: true
+  datasource:
+    name: document-signer
+    url: jdbc:postgresql://localhost:5433/document-signer
+    password: dbpass
+    username: dbuser
+    driver-class-name: org.postgresql.Driver
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+cloud:
+  aws:
+    credentials:
+      accessKey: {accessKey}
+      secretKey: {secretKey}
+    region: {region}
+    s3:
+      source-bucket: {source-bucket}
+      target-bucket: {target-bucket}
+    sqs:
+      request-queue: {request-queue}
+      response-queue: {response-queue}
+    kms:
+      alias: {kms-alias}
+
+
+
+

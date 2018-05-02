@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<ruleset name="Cast and Crew PMD Ruleset"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+
+    <description>Cast and Crew Ruleset</description>
+
+    <rule ref="rulesets/java/basic.xml">
+        <exclude name="AvoidBranchingStatementAsLastInLoop"/>
+    </rule>
+    <rule ref="rulesets/java/braces.xml"/>
+    <rule ref="rulesets/java/clone.xml"/>
+    <rule ref="rulesets/java/codesize.xml/TooManyMethods">
+        <properties>
+            <property name="maxmethods" value="33"/>
+            <property name="xpath">
+                <value>
+                    <!--  FIXME: Refine XPath to discard 'get' and 'set' methods with Block no more than 3 lines,
+                                something like this:
+                                    not (
+                                    (
+                                    starts-with(@Image,'get')
+                                        or
+                                    starts-with(@Image,'set')
+                                    )
+                                    and ( (
+                                        (../Block/attribute::endLine)
+                                         -
+                                        (../Block/attribute::beginLine) ) <= 3 )
+                                    )
+                                This will avoid discarding 'real' method...
+                     -->
+                    <![CDATA[
+                     //ClassOrInterfaceDeclaration/ClassOrInterfaceBody
+                    [
+                        count(descendant::MethodDeclarator[
+                            not
+                            (
+                            starts-with(@Image,'get')
+                                or
+                            starts-with(@Image,'set')
+                            )
+                        ]) > 33
+                    ]
+                    ]]>
+                </value>
+            </property>
+        </properties>
+    </rule>
+    <!--
+    <rule ref="rulesets/codesize.xml">
+      <exclude name="CyclomaticComplexity"/>
+      <exclude name="NPathComplexity"/>
+    </rule>
+    -->
+    <rule ref="rulesets/java/controversial.xml">
+        <exclude name="DataflowAnomalyAnalysis"/>
+        <exclude name="NullAssignment"/>
+        <exclude name="AvoidFinalLocalVariable"/>
+        <exclude name="DefaultPackage"/>
+        <exclude name="OnlyOneReturn"/>
+        <exclude name="UseConcurrentHashMap"/>       <!-- New and excluded -->
+        <exclude name="AtLeastOneConstructor"/>      <!-- New and excluded -->
+        <exclude name="AvoidLiteralsInIfCondition"/> <!-- New and excluded -->
+        <exclude name="AvoidPrefixingMethodParameters"/> <!-- New and excluded -->
+        <exclude name="UseObjectForClearerAPI"/>     <!-- New and excluded -->
+        <!--<exclude name="OneDeclarationPerLine"/>-->     <!-- New, INCLUDE jdk1.7 -->
+        <exclude name="AssignmentInOperand"/>     <!-- New and excluded --> <!--This flags expressions like this: if (currentDigit++ < MAX) -->
+        <exclude name="AvoidUsingShortType"/>
+    </rule>
+
+    <rule ref="rulesets/java/coupling.xml">
+        <exclude name="LawOfDemeter"/>             <!-- New and excluded -->
+        <exclude name="ExcessiveImports"/>
+        <exclude name="LoosePackageCoupling"/>
+    </rule>
+
+    <rule ref="rulesets/java/design.xml">
+        <exclude name="ConfusingTernary"/>
+        <exclude name="AvoidSynchronizedAtMethodLevel"/>
+        <exclude name="EmptyMethodInAbstractClassShouldBeAbstract"/>
+        <exclude name="GodClass"/>                  <!-- New and excluded -->
+        <exclude name="ImmutableField"/>
+        <exclude name="UseLocaleWithCaseConversions"/>
+        <!--<exclude name="FieldDeclarationsShouldBeAtStartOfClass"/>-->  <!-- New, INCLUDE jdk1.7 -->
+        <!--<exclude name="UseVarargs"/>-->                <!-- New, INCLUDE jdk1.7 -->
+        <!--<exclude name="UseCollectionIsEmpty"/>-->      <!-- New, INCLUDE jdk1.7 -->
+        <!--<exclude name="MissingBreakInSwitch"/>-->      <!-- New, INCLUDE jdk1.7 -->
+        <!--<exclude name="LogicInversion"/>-->            <!-- New, INCLUDE jdk1.7 -->
+        <!--<exclude name="UseUtilityClass"/>-->           <!-- New, INCLUDE jdk1.7 -->
+    </rule>
+    <rule ref="rulesets/java/finalizers.xml"/>
+    <rule ref="rulesets/java/imports.xml">
+        <!--<exclude name="UnnecessaryFullyQualifiedName"/>-->       <!-- New, INCLUDE jdk1.7 -->
+        <!--<exclude name="TooManyStaticImports"/>-->                <!-- New, INCLUDE jdk1.7 -->
+    </rule>
+    <rule ref="rulesets/java/javabeans.xml">
+        <exclude name="BeanMembersShouldSerialize"/>
+    </rule>
+    <rule ref="rulesets/java/junit.xml">
+        <exclude name="JUnitTestsShouldIncludeAssert"/>
+    </rule>
+    <rule ref="rulesets/java/logging-java.xml">
+        <exclude name="GuardLogStatementJavaUtil"/>
+    </rule>
+    <rule ref="rulesets/java/naming.xml">
+        <exclude name="ShortVariable"/>
+        <exclude name="LongVariable"/>
+        <exclude name="ShortClassName"/>   <!-- New and excluded -->
+        <exclude name="VariableNamingConventions"/>   <!-- New and excluded -->
+        <exclude name="GenericsNaming"/>   <!-- New and excluded -->
+        <exclude name="AvoidFieldNameMatchingTypeName"/>
+    </rule>
+    <rule ref="rulesets/java/optimizations.xml">
+        <exclude name="LocalVariableCouldBeFinal"/>
+        <exclude name="AvoidInstantiatingObjectsInLoops"/>
+        <exclude name="RedundantFieldInitializer"/>   <!-- New and excluded -->
+        <!--<exclude name="PrematureDeclaration"/>-->       <!-- New, INCLUDE jdk1.7 -->
+    </rule>
+    <rule ref="rulesets/java/strictexception.xml">
+        <exclude name="AvoidCatchingGenericException"/>   <!-- New and excluded -->
+    </rule>
+
+    <rule ref="rulesets/java/strings.xml/AvoidDuplicateLiterals">
+        <properties>
+            <property name="skipAnnotations" value="true"/>>
+        </properties>
+    </rule>
+
+    <rule ref="rulesets/java/strings.xml">
+
+        <exclude name="ConsecutiveAppendsShouldReuse"/>  <!-- New and excluded -->
+        <exclude name="ConsecutiveLiteralAppends"/>      <!-- New and excluded -->
+        <!--<exclude name="AppendCharacterWithChar"/>-->      <!-- New, INCLUDE jdk1.7 -->
+        <exclude name="InsufficientStringBufferDeclaration"/> <!-- New and excluded -->
+        <!--<exclude name="AvoidStringBufferField"/>-->       <!-- New, INCLUDE jdk1.7 -->
+        <!--<exclude name="UseStringBufferLength"/>-->        <!-- New, INCLUDE jdk1.7 -->
+        <!--<exclude name="InefficientStringBuffering"/>-->   <!-- New, INCLUDE jdk1.7 -->
+        <!--<exclude name="UseIndexOfChar"/>-->               <!-- New, INCLUDE jdk1.7 -->
+    </rule>
+
+    <rule ref="rulesets/java/sunsecure.xml"/>
+    <rule ref="rulesets/java/unusedcode.xml">
+        <exclude name="UnusedPrivateField"/>
+    </rule>
+    <rule ref="rulesets/java/logging-jakarta-commons.xml">
+        <exclude name="GuardLogStatement"/>             <!-- New and excluded -->
+    </rule>
+    <rule ref="rulesets/java/logging-jakarta-commons.xml/ProperLogger">
+        <!-- The ProperLogger rule also insists that all loggers have the same name. By default,
+        this name should be LOG, but we use LOGGER, so this modifies the rule. The down side
+        is that, if anybody uses a different name, they'll get a nonsensical error message.
+        (Like the messages I got when I first tried to turn this rule on!) -->
+        <properties>
+            <property name="staticLoggerName" value="LOGGER"/>
+        </properties>
+        <!-- This modification doesn't work:-->
+        <description>Logger should be defined private static final, be named LOGGER, and have the correct class
+        </description>
+    </rule>
+
+    <!-- Exclude entire unused rulesets -->
+    <!--
+        -->
+
+    <!-- We want to customize this rule a bit, change the message and raise the priority  -->
+    <rule
+            ref="rulesets/java/empty.xml/EmptyCatchBlock"
+            message="Must handle exceptions">
+        <priority>2</priority>
+    </rule>
+
+    <!-- Note we want everything from braces.xml except WhileLoopsMustUseBraces -->
+    <rule ref="rulesets/java/braces.xml">
+        <exclude name="WhileLoopsMustUseBraces"/>
+    </rule>
+</ruleset>

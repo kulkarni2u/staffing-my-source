@@ -1,0 +1,44 @@
+version: '2'
+
+services:
+  postgres_db:
+    image: postgres:10.3
+    volumes:
+      - postgres_db:/var/lib/postgres/data
+      - db_dump:/tmp/db_dump
+      - ./docker/healthchecks:/healthchecks
+    environment:
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: dbpass
+      POSTGRES_DB: document-signer
+    ports:
+      - "5435:5432"
+    restart: always
+  redis:
+    image: redis:3.2
+    volumes:
+      - redis_db:/data
+      - ./docker/healthchecks:/healthchecks
+    command: redis-server --appendonly yes
+    restart: always
+  s3Mock:
+    image: adobe/s3mock
+    volumes:
+      - mockS3
+    environment:
+      initialBuckets: docuSigner-iput, docuSigner-output
+      validKmsKeys: arn:aws:kms:us-east-1:47110815:key/c51fdeea-f623-4a2b-90b5-15d72963cf9d
+      root: docuSigner
+  sonar:
+    image: sonarqube:6.7.1-alpine
+    ports:
+      - 9080:9000
+      - 9082:9092
+    restart: always
+volumes:
+  postgres_db:
+  db_dump:
+  redis_db:
+  redis:
+  mockS3:
+  sonar:
