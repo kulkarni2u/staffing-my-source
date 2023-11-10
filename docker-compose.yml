@@ -27,7 +27,7 @@ services:
 #      - mockS3
     environment:
       initialBuckets: docuSigner-iput, docuSigner-output
-      validKmsKeys: arn:aws:kms:us-east-1:47110815:key/c51fdeea-f623-4a2b-90b5-15d72963cf9d
+      validKmsKeys: arn:aws:kms:us-east-1:84734897897:key/deec51fa-f645-4a2d-99d5-15d72696cf9d
       root: docuSigner
 #  sonar:
 #    image: sonarqube:6.7.1-alpine
