@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Configuration
@@ -20,8 +19,13 @@ public class TemplateConfig {
 
             final List<Template> templates = IntStream
                     .range(1, TOTAL)
-                    .mapToObj(value -> new Template("template-" + value))
-                    .collect(Collectors.toList());
+                    .mapToObj(value -> {
+                        Template template = new Template();
+                        template.setName("Template-" + value);
+
+                        return template;
+                    })
+                    .toList();
 
             templates.forEach(repository::save);
         };
