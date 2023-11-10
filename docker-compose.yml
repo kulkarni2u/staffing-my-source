@@ -26,7 +26,7 @@ services:
 #    volumes:
 #      - mockS3
     environment:
-      initialBuckets: docuSigner-iput, docuSigner-output
+      initialBuckets: docuSigner-input, docuSigner-output
       validKmsKeys: arn:aws:kms:us-east-1:84734897897:key/deec51fa-f645-4a2d-99d5-15d72696cf9d
       root: docuSigner
 #  sonar:
