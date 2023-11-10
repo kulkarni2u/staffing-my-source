@@ -1,5 +1,5 @@
 CREATE TABLE actors (
-  id                    BYTEA NOT NULL CONSTRAINT actor_pkey primary key,
+  id                    uuid NOT NULL CONSTRAINT actor_pkey primary key,
   external_app          TEXT NOT NULL,
   external_id           TEXT NOT NULL,
   created_by            VARCHAR(20),
@@ -12,11 +12,11 @@ CREATE TABLE actors (
 );
 
 CREATE TABLE categories (
-  id   BYTEA NOT NULL CONSTRAINT category_pkey primary key,
+  id   uuid NOT NULL CONSTRAINT category_pkey primary key,
   name TEXT  NOT NULL
 );
 
 CREATE TABLE template_categories (
-  template_id BYTEA NOT NULL REFERENCES templates(id),
-  category_id BYTEA NOT NULL REFERENCES categories(id)
+  template_id uuid NOT NULL REFERENCES templates(id),
+  category_id uuid NOT NULL REFERENCES categories(id)
 );

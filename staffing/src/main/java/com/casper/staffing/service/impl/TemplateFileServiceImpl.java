@@ -5,7 +5,6 @@ import com.casper.staffing.model.TemplateFile;
 import com.casper.staffing.repository.TemplateFileRepository;
 import com.casper.staffing.service.TemplateFileService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +15,6 @@ import java.util.UUID;
 public class TemplateFileServiceImpl implements TemplateFileService {
     private TemplateFileRepository templateFileRepository;
 
-    @Autowired
     public TemplateFileServiceImpl(final TemplateFileRepository templateFileRepository) {
         this.templateFileRepository = templateFileRepository;
     }

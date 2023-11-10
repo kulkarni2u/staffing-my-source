@@ -1,7 +1,7 @@
 CREATE TYPE field_types AS ENUM ('BTN', 'CHK', 'CMB', 'RDO', 'TXT');
 
 CREATE TABLE "template_fields" (
-  id                    BYTEA NOT NULL CONSTRAINT template_fields_pkey primary key,
+  id                    uuid NOT NULL CONSTRAINT template_fields_pkey primary key,
   name                  VARCHAR(100) NOT NULL,
   "left"                FLOAT,
   top                   FLOAT,
@@ -18,7 +18,7 @@ CREATE TABLE "template_fields" (
   is_deleted            BOOLEAN DEFAULT FALSE,
   deleted_by            VARCHAR(20),
   deleted_date          TIMESTAMP WITHOUT TIME ZONE,
-  template_file_id      BYTEA NOT NULL REFERENCES template_files(id),
+  template_file_id      uuid NOT NULL REFERENCES template_files(id),
   field_type            field_types NOT NULL,
   options               JSONB
 );

@@ -2,7 +2,7 @@ version: '2'
 
 services:
   postgres_db:
-    image: postgres:10.3
+    image: postgres:latest
     volumes:
       - postgres_db:/var/lib/postgres/data
       - db_dump:/tmp/db_dump
@@ -12,7 +12,7 @@ services:
       POSTGRES_PASSWORD: dbpass
       POSTGRES_DB: document-signer
     ports:
-      - "5435:5432"
+      - "5433:5432"
     restart: always
   redis:
     image: redis:3.2
@@ -23,22 +23,22 @@ services:
     restart: always
   s3Mock:
     image: adobe/s3mock
-    volumes:
-      - mockS3
+#    volumes:
+#      - mockS3
     environment:
       initialBuckets: docuSigner-iput, docuSigner-output
       validKmsKeys: arn:aws:kms:us-east-1:47110815:key/c51fdeea-f623-4a2b-90b5-15d72963cf9d
       root: docuSigner
-  sonar:
-    image: sonarqube:6.7.1-alpine
-    ports:
-      - 9080:9000
-      - 9082:9092
-    restart: always
+#  sonar:
+#    image: sonarqube:6.7.1-alpine
+#    ports:
+#      - 9080:9000
+#      - 9082:9092
+#    restart: always
 volumes:
   postgres_db:
   db_dump:
   redis_db:
   redis:
-  mockS3:
-  sonar:
+#  mockS3:
+#  sonar:

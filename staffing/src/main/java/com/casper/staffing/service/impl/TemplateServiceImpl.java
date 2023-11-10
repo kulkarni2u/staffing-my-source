@@ -5,7 +5,6 @@ import com.casper.staffing.repository.TemplateRepository;
 import com.casper.staffing.service.TemplateService;
 import com.casper.staffing.util.CommonUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +22,6 @@ import static com.casper.staffing.constants.CommonConstants.SORT_BY_ID;
 public class TemplateServiceImpl implements TemplateService {
     private TemplateRepository templateRepository;
 
-    @Autowired
     public TemplateServiceImpl(final TemplateRepository templateRepository) {
         this.templateRepository = templateRepository;
     }
